@@ -1,5 +1,3 @@
-// TODO: primary & secondary button
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -40,7 +38,7 @@ export default function ButtonGeneral({ text, type, rounded, icon, onClick }) {
 
   return (
     <button
-      className={`w-full py-2 px-4 pb-3 flex justify-center items-center gap-1 ${styleClass}`}
+      className={`w-full py-1 px-4 pb-2 flex justify-center items-center gap-1 text-sm ${styleClass}`}
       onClick={onClick}
     >
       {icon}
