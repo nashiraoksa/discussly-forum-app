@@ -13,4 +13,10 @@ export default defineConfig([
   { files: ['**/*.{js,mjs,cjs,jsx}'], plugins: { js }, extends: ['js/recommended'] },
   pluginReact.configs.flat.recommended,
   daStyle,
+  {
+    rules: {
+      'linebreak-style': 'off',
+      indent: ['error', 2, { SwitchCase: 1 }],
+    },
+  },
 ]);
