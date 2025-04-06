@@ -1,4 +1,3 @@
-// TODO: selected & unselected tag
 import PropTypes from 'prop-types';
 import React from 'react';
 
