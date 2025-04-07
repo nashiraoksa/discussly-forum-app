@@ -10,7 +10,7 @@ export default function ButtonGeneral({ text, type, rounded, icon, onClick }) {
       break;
     case 'secondary':
       styleClass +=
-        'bg-transparent border border-white text-white hover:border-2 hover:font-semibold ';
+        'bg-transparent border border-white text-white hover:bg-[#58A4B0] hover:border-[#58A4B0] ';
       break;
     default:
       styleClass += 'bg-black text-white ';
