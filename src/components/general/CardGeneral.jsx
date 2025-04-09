@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function CardGeneral({ children }) {
   return (
-    <div className='w-auto h-auto p-6 flex flex-col justify-center items-center gap-4 bg-white border border-[#EAEAEA] shadow-md rounded-xl'>
+    <div className='w-full h-fit p-6 flex flex-col justify-start items-center bg-white border border-[#EAEAEA] shadow-md rounded-xl'>
       {children}
     </div>
   );
