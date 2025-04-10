@@ -6,7 +6,7 @@ import ThreadItem from './ThreadItem';
 
 export default function ThreadList() {
   const authUser = {
-    // id: 'saj',
+    id: 'saj',
   };
 
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function ThreadList() {
     {
       id: 'thread-1',
       title: 'Thread Pertama',
-      body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, in non possimus similique perspiciatis pariatur dolorem obcaecati quaerat eius ipsa quis numquam blanditiis unde, cupiditate eaque recusandae corporis amet doloremque veritatis vero voluptatum laboriosam? Minima, alias? Earum officiis a sequi!',
+      body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, in non possimus similique perspiciatis pariatur dolorem obcaecati quaerat eius ipsa quis numquam blanditiis unde, cupiditate eaque recusandae corporis amet doloremque veritatis vero voluptatum laboriosam? Minima, corporis amet doloremque veritatis vero voluptatum laboriosam? Minima,  corporis amet doloremque veritatis vero voluptatum laboriosam? Minima, corporis amet doloremque veritatis vero voluptatum laboriosam? Minima, alias? Earum officiis a sequi!',
       category: 'General',
       createdAt: '2021-06-21T07:00:00.000Z',
       ownerId: 'users-1',
@@ -80,7 +80,7 @@ export default function ThreadList() {
         <h2 className='text-2xl text-[#373F51] font-bold'>Discussions</h2>
         <button
           className='w-[35px] h-[35px] bg-[#373F51] text-white text-xs flex justify-center items-center rounded-full hover:bg-[#D8DBE2] hover:text-[#373F51] disabled:bg-gray-200 disabled:text-gray-400'
-          disabled={authUser.id ? true : false}
+          disabled={authUser.id ? false : true}
           onClick={onClickAddNewThread}
         >
           <FaPencilAlt />

@@ -48,7 +48,9 @@ export default function ThreadItem({
         </div>
       </header>
       <div className='flex flex-col gap-2'>
-        <div className='text-sm text-gray-500'>{body}</div>
+        <div className='max-h-16 text-sm text-gray-500 text-wrap overflow-hidden'>
+          <p className='w-full line-clamp-3'>{body}</p>
+        </div>
         <div className='w-full mt-2 flex gap-2 justify-between items-center'>
           <div className='w-fit flex gap-2 items-center'>
             <span className='text-xs bg-[#D8DBE2] text-[#373F51] py-1 px-3 rounded-full'>

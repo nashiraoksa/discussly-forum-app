@@ -59,7 +59,7 @@ export default function PopularTags() {
             );
           })}
         </div>
-        <span className='text-sm pt-2 text-[#58A4B0] font-semibold cursor-pointer'>
+        <span className='text-xs pt-2 text-[#58A4B0] font-bold cursor-pointer'>
           See more tags {'>'}{' '}
         </span>
       </div>
