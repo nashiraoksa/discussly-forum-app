@@ -7,13 +7,14 @@ import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
 import LeaderboardPage from './pages/LeaderboardPage';
+import NewThreadPage from './pages/NewThreadPage';
 
 function App() {
   const [authUser, setAuthUser] = useState({
     id: 'user-Leo0KyEL2PsiZ47Z',
-    name: 'nashira oksani',
+    name: 'nashira',
     email: 'test16@gmail.com',
-    avatar: 'https://ui-avatars.com/api/?name=test16&background=random',
+    avatar: 'https://ui-avatars.com/api/?name=nashiraoksani&background=random',
   });
 
   const signOut = () => {
@@ -22,15 +23,16 @@ function App() {
 
   return (
     <>
-      <div className='w-screen h-screen flex flex-col justify-between overflow-y-auto'>
+      <div className='relative w-full h-auto flex flex-col justify-between overflow-y-auto'>
         <header className='relative w-full'>
           <Navigation authUser={authUser} signOut={signOut} />
           <div className='absolute top-0 w-full h-[30vh] bg-[#373F51] -z-10'></div>
         </header>
-        <main className='min-h-[90vh]'>
+        <main className='h-auto min-h-[90vh] mt-20 mb-5'>
           <Routes>
-            <Route path='/' element={<HomePage />} />
+            <Route path='/' element={<HomePage authUser={authUser} />} />
             <Route path='/thread/:id' element={<DetailPage />} />
+            <Route path='/new' element={<NewThreadPage />} />
             <Route path='/leaderboard' element={<LeaderboardPage />} />
             {!authUser.id && (
               <>
@@ -38,7 +40,14 @@ function App() {
                 <Route path='/login' element={<LoginPage />} />
               </>
             )}
-            <Route path='*' element={<div>404 NOT FOUND</div>} />
+            <Route
+              path='*'
+              element={
+                <div className='w-full h-screen flex justify-center items-center text-2xl font-semibold'>
+                  404 NOT FOUND
+                </div>
+              }
+            />
           </Routes>
         </main>
         <footer>

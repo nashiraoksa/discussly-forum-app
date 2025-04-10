@@ -7,7 +7,7 @@ export default function TextAreaGeneral({ placeholder, isEmpty, divRef, handleIn
   }, []);
 
   return (
-    <div className='relative text-sm'>
+    <div className='relative text-sm h-full'>
       {isEmpty && (
         <div className='absolute p-2 text-gray-400 pointer-events-none select-none'>
           {placeholder}
@@ -17,7 +17,7 @@ export default function TextAreaGeneral({ placeholder, isEmpty, divRef, handleIn
         ref={divRef}
         contentEditable
         onInput={handleInput}
-        className='min-h-[4rem] border-b border-b-black p-2 focus:outline-none'
+        className='h-auto min-h-36 max-h-60 border-b border-b-black p-2 focus:outline-none overflow-y-auto'
       ></div>
     </div>
   );
