@@ -40,7 +40,14 @@ function App() {
                 <Route path='/login' element={<LoginPage />} />
               </>
             )}
-            <Route path='*' element={<div>404 NOT FOUND</div>} />
+            <Route
+              path='*'
+              element={
+                <div className='w-full h-screen flex justify-center items-center text-2xl font-semibold'>
+                  404 NOT FOUND
+                </div>
+              }
+            />
           </Routes>
         </main>
         <footer>
