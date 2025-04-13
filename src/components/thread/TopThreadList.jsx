@@ -2,6 +2,7 @@ import React from 'react';
 import CardGeneral from '../general/CardGeneral';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import parser from 'html-react-parser';
 
 export default function TopThreadList({ threads }) {
   const topThreads = [...threads]
@@ -26,7 +27,7 @@ export default function TopThreadList({ threads }) {
                 >
                   {thread.title}
                 </h4>
-                <p className='h-6 text-sm text-[#838a99] truncate'>{thread.body}</p>
+                <p className='h-6 text-sm text-[#838a99] truncate'>{parser(thread.body)}</p>
               </div>
               <div className='text-sm flex justify-between'>
                 <span className='text-[#838a99] font-medium'>

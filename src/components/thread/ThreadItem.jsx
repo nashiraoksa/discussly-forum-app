@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FaRegThumbsUp, FaRegThumbsDown, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { postedAt } from '../../utils';
+import parser from 'html-react-parser';
 
 export default function ThreadItem({
   id,
@@ -21,10 +22,13 @@ export default function ThreadItem({
   const [isThreadDownVoted, setIsThreadDownVoted] = useState(false);
 
   const handleUpVote = () => {
+    // if upvoteby include user.id, then neutralize, else upvote
     setIsThreadUpVoted((prev) => !prev);
   };
 
   const handleDownVote = () => {
+    // if downvoteby include user.id, then neutralize, else downvote
+    // e.stopPropagate()
     setIsThreadDownVoted((prev) => !prev);
   };
 
@@ -49,7 +53,7 @@ export default function ThreadItem({
       </header>
       <div className='flex flex-col gap-2'>
         <div className='max-h-16 text-sm text-gray-500 text-wrap overflow-hidden'>
-          <p className='w-full line-clamp-3'>{body}</p>
+          <p className='w-full line-clamp-3'>{parser(body)}</p>
         </div>
         <div className='w-full mt-2 flex gap-2 justify-between items-center'>
           <div className='w-fit flex gap-2 items-center'>
