@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/main/Navigation';
 import Footer from './components/main/Footer';
@@ -8,24 +8,32 @@ import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import NewThreadPage from './pages/NewThreadPage';
+import { asyncPreloadProcess } from './states/isPreload/action';
+import { asyncUnsetAuthUser } from './states/authUser/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const [authUser, setAuthUser] = useState({
-    id: 'user-Leo0KyEL2PsiZ47Z',
-    name: 'nashira',
-    email: 'test16@gmail.com',
-    avatar: 'https://ui-avatars.com/api/?name=nashiraoksani&background=random',
-  });
+  const { authUser = null, isPreload = false } = useSelector((states) => states);
 
-  const signOut = () => {
-    setAuthUser({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(asyncPreloadProcess());
+  }, [dispatch]);
+
+  const onSignOut = () => {
+    dispatch(asyncUnsetAuthUser());
   };
+
+  if (isPreload) {
+    return null;
+  }
 
   return (
     <>
       <div className='relative w-full h-auto flex flex-col justify-between overflow-y-auto'>
         <header className='relative w-full'>
-          <Navigation authUser={authUser} signOut={signOut} />
+          <Navigation authUser={authUser !== null && authUser} signOut={onSignOut} />
           <div className='absolute top-0 w-full h-[30vh] bg-[#373F51] -z-10'></div>
         </header>
         <main className='h-auto min-h-[90vh] mt-20 mb-5'>
@@ -34,7 +42,7 @@ function App() {
             <Route path='/thread/:id' element={<DetailPage />} />
             <Route path='/new' element={<NewThreadPage />} />
             <Route path='/leaderboard' element={<LeaderboardPage />} />
-            {!authUser.id && (
+            {authUser === null && (
               <>
                 <Route path='/register' element={<RegisterPage />} />
                 <Route path='/login' element={<LoginPage />} />
