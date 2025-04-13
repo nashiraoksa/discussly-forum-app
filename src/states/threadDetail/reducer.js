@@ -1,7 +1,7 @@
 import { ActionType } from './action';
 
 function threadDetailReducer(threadDetail = null, action = {}) {
-  switch (action) {
+  switch (action.type) {
     case ActionType.RECEIVE_THREAD_DETAIL:
       return action.payload.threadDetail;
     case ActionType.CLEAR_THREAD_DETAIL:
@@ -23,12 +23,12 @@ function threadDetailReducer(threadDetail = null, action = {}) {
     case ActionType.NEUTRALIZE_THREAD_DETAIL:
       return {
         ...threadDetail,
-        upVotesBy:
-          threadDetail.upVotesBy.includes(action.payload.userId) &&
-          threadDetail.downVotesBy.filter((id) => id !== action.payload.userId),
-        downVotesBy:
-          threadDetail.upVotesBy.includes(action.payload.userId) &&
-          threadDetail.downVotesBy.filter((id) => id !== action.payload.userId),
+        upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
+          ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.upVotesBy,
+        downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
+          ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.downVotesBy,
       };
     default:
       return threadDetail;
