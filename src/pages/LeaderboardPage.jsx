@@ -1,8 +1,11 @@
 import React from 'react';
 import CardGeneral from '../components/general/CardGeneral';
 import LeaderboardList from '../components/leaderboard/LeaderboardList';
+import { useSelector } from 'react-redux';
 
 export default function LeaderboardPage() {
+  const { leaderboards = [] } = useSelector((states) => states);
+
   return (
     <div className='w-full h-full py-12 px-96 flex flex-col justify-start items-center'>
       <CardGeneral>
@@ -15,7 +18,7 @@ export default function LeaderboardPage() {
             <h3>Score</h3>
           </div>
         </header>
-        <LeaderboardList />
+        <LeaderboardList leaderboards={leaderboards} />
       </CardGeneral>
     </div>
   );
