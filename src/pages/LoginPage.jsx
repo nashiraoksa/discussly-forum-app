@@ -1,10 +1,18 @@
 import React from 'react';
 import CardGeneral from '../components/general/CardGeneral';
 import LoginInput from '../components/login/LoginInput';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { asyncSetAuthUser } from '../states/authUser/action';
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onLogin = ({ email, password }) => {
     console.log('login', email, password);
+    dispatch(asyncSetAuthUser({ email, password }));
+    navigate('/');
   };
 
   return (

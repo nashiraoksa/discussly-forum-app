@@ -20,7 +20,7 @@ const api = (() => {
   }
 
   async function register({ name, email, password }) {
-    const response = await fetch(`${BASE_URL}/users`, {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -139,10 +139,10 @@ const api = (() => {
     }
 
     const {
-      data: { threads },
+      data: { leaderboards },
     } = responseJson;
 
-    return threads;
+    return leaderboards;
   }
 
   async function getThreadDetail(id) {
