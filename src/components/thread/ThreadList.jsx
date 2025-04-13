@@ -3,76 +3,14 @@ import CardGeneral from '../general/CardGeneral';
 import { FaPencilAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import ThreadItem from './ThreadItem';
+import PropTypes from 'prop-types';
 
-export default function ThreadList() {
-  const authUser = {
-    id: 'saj',
-  };
-
+export default function ThreadList({ threads, authUser }) {
   const navigate = useNavigate();
 
   const onClickAddNewThread = () => {
     navigate('/new');
   };
-
-  // data dummy
-  const threads = [
-    {
-      id: 'thread-1',
-      title: 'Thread Pertama',
-      body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, in non possimus similique perspiciatis pariatur dolorem obcaecati quaerat eius ipsa quis numquam blanditiis unde, cupiditate eaque recusandae corporis amet doloremque veritatis vero voluptatum laboriosam? Minima, corporis amet doloremque veritatis vero voluptatum laboriosam? Minima,  corporis amet doloremque veritatis vero voluptatum laboriosam? Minima, corporis amet doloremque veritatis vero voluptatum laboriosam? Minima, alias? Earum officiis a sequi!',
-      category: 'General',
-      createdAt: '2021-06-21T07:00:00.000Z',
-      ownerId: 'users-1',
-      upVotesBy: [],
-      downVotesBy: [],
-      totalComments: 0,
-    },
-    {
-      id: 'thread-2',
-      title: 'Thread Kedua',
-      body: 'Ini adalah thread kedua',
-      category: 'General',
-      createdAt: '2021-06-21T07:00:00.000Z',
-      ownerId: 'users-2',
-      upVotesBy: [],
-      downVotesBy: [],
-      totalComments: 0,
-    },
-    {
-      id: 'thread-2',
-      title: 'Thread Kedua',
-      body: 'Ini adalah thread kedua',
-      category: 'General',
-      createdAt: '2021-06-21T07:00:00.000Z',
-      ownerId: 'users-2',
-      upVotesBy: [],
-      downVotesBy: [],
-      totalComments: 0,
-    },
-    {
-      id: 'thread-2',
-      title: 'Thread Kedua',
-      body: 'Ini adalah thread kedua',
-      category: 'General',
-      createdAt: '2021-06-21T07:00:00.000Z',
-      ownerId: 'users-2',
-      upVotesBy: [],
-      downVotesBy: [],
-      totalComments: 0,
-    },
-    {
-      id: 'thread-2',
-      title: 'Thread Kedua',
-      body: 'Ini adalah thread kedua',
-      category: 'General',
-      createdAt: '2021-06-21T07:00:00.000Z',
-      ownerId: 'users-2',
-      upVotesBy: [],
-      downVotesBy: [],
-      totalComments: 0,
-    },
-  ];
 
   return (
     <CardGeneral>
@@ -86,24 +24,16 @@ export default function ThreadList() {
           <FaPencilAlt />
         </button>
       </div>
-      <div className='w-full h-full p-0'>
+      <div className='w-full h-auto'>
         {threads.map((thread) => {
-          return (
-            <ThreadItem
-              key={thread.id}
-              id={thread.id}
-              title={thread.title}
-              body={thread.body}
-              username={thread.ownerId}
-              category={thread.category}
-              createdAt={thread.createdAt}
-              upVotesBy={thread.upVotesBy}
-              downVotesBy={thread.downVotesBy}
-              totalComments={thread.totalComments}
-            />
-          );
+          return <ThreadItem key={thread.id} {...thread} />;
         })}
       </div>
     </CardGeneral>
   );
 }
+
+ThreadList.propTypes = {
+  threads: PropTypes.array.isRequired,
+  authUser: PropTypes.object.isRequired,
+};

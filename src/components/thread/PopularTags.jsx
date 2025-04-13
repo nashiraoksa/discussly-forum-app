@@ -1,46 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CardGeneral from '../general/CardGeneral';
 import TagGeneral from '../general/TagGeneral';
+import PropTypes from 'prop-types';
 
-export default function PopularTags() {
-  // data dummy
-  const threads = [
-    { id: 'thread-1', title: 'Thread Pertama', body: '...', category: 'General' },
-    { id: 'thread-2', title: 'Thread Kedua', body: '...', category: 'Tech' },
-    { id: 'thread-3', title: 'Thread Ketiga', body: '...', category: 'General' },
-    { id: 'thread-4', title: 'Thread Keempat', body: '...', category: 'Tech' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'Science' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'Scienc' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'xsence' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'programming' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'coffee' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'computer' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'chair' },
-    { id: 'thread-5', title: 'Thread Kelima', body: '...', category: 'rubik' },
-  ];
-
-  // const [selected, setSelected] = useState(false);
-
-  const initialCategories = [
-    ...new Map(
-      threads.map((thread) => [thread.category, { category: thread.category, selected: false }])
-    ).values(),
-  ];
-
-  const [categories, setCategories] = useState(initialCategories);
-
-  const handleCategoryClick = (categoryClicked) => {
-    setCategories((prevCategories) =>
-      prevCategories.map((category) =>
-        category.category === categoryClicked
-          ? { ...category, selected: !category.selected } // toggle selected
-          : category
-      )
-    );
-
-    // TODO: filter thread by category and display thread item
-  };
-
+export default function PopularTags({ categories, onCategoryClick }) {
   return (
     <CardGeneral>
       <header className='w-full mb-4'>
@@ -54,7 +17,7 @@ export default function PopularTags() {
                 key={category.category}
                 text={category.category}
                 selected={category.selected}
-                onClick={() => handleCategoryClick(category.category)}
+                onClick={() => onCategoryClick(category.category)}
               />
             );
           })}
@@ -66,3 +29,8 @@ export default function PopularTags() {
     </CardGeneral>
   );
 }
+
+PopularTags.propTypes = {
+  categories: PropTypes.array.isRequired,
+  onCategoryClick: PropTypes.func.isRequired,
+};

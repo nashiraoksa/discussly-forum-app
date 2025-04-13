@@ -11,7 +11,7 @@ const ActionType = {
 function receiveThreadsActionCreator(threads) {
   return {
     type: ActionType.RECEIVE_THREADS,
-    paylaoad: {
+    payload: {
       threads,
     },
   };

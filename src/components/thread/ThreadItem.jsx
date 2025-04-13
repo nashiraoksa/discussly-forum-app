@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { FaRegThumbsUp, FaRegThumbsDown, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { postedAt } from '../../utils';
 
 export default function ThreadItem({
   id,
+  user,
   title,
   body,
   category,
   createdAt,
-  avatar,
-  username,
   upVotesBy,
   downVotesBy,
   totalComments,
@@ -33,10 +33,10 @@ export default function ThreadItem({
       <header className='w-full flex flex-col gap-2'>
         <div className='w-full flex justify-between items-center'>
           <div className='flex items-center gap-2'>
-            <img src={avatar} alt='avatar' className='w-5 h-5 rounded-full bg-slate-300' />
-            <span className='text-xs'>{username}</span>
+            <img src={user.avatar} alt='avatar' className='w-5 h-5 rounded-full bg-slate-300' />
+            <span className='text-xs'>{user.name}</span>
           </div>
-          <span className='text-xs text-slate-400'>{createdAt}</span>
+          <span className='text-xs text-slate-400'>{postedAt(createdAt)}</span>
         </div>
         <div>
           <h3
@@ -93,8 +93,7 @@ ThreadItem.propTypes = {
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   upVotesBy: PropTypes.array.isRequired,
   downVotesBy: PropTypes.array.isRequired,
   totalComments: PropTypes.number.isRequired,
