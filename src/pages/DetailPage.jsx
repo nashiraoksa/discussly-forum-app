@@ -3,7 +3,7 @@ import CardGeneral from '../components/general/CardGeneral';
 import ThreadDetail from '../components/thread/ThreadDetail';
 import CommentInput from '../components/comment/CommentInput';
 import CommentList from '../components/comment/CommentList';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   asyncReceiveThreadDetail,
   asyncUpVoteThreadDetail,
@@ -14,6 +14,7 @@ import { asyncAddComment } from '../states/comments/action';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function DetailPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
   const { threadDetail = null, authUser } = useSelector((states) => states);
@@ -34,7 +35,10 @@ export default function DetailPage() {
     }
   };
 
-  const onCommentThread = () => {};
+  const onCommentThread = (comment) => {
+    console.log(id);
+    dispatch(asyncAddComment({ content: comment, threadId: id }));
+  };
 
   const onVoteComment = () => {};
 
@@ -56,9 +60,16 @@ export default function DetailPage() {
             onUpVoteThread={onUpVoteThread}
             onDownVoteThread={onDownVoteThread}
           />
-          {/* TODO: render reply comment input only if authUser exist */}
-          <CommentInput onCommentThread={onCommentThread} />
-          <CommentList onVoteComment={onVoteComment} />
+          {authUser?.id ? (
+            <CommentInput createComment={onCommentThread} />
+          ) : (
+            <div className='w-full h-24 flex justify-center items-center text-gray-500 underline'>
+              <p onClick={() => navigate('/login')} className='cursor-pointer'>
+                Please login to write a comment.
+              </p>
+            </div>
+          )}
+          <CommentList comments={threadDetail.comments} onVoteComment={onVoteComment} />
         </div>
       </CardGeneral>
     </div>

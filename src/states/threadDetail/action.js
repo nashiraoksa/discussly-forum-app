@@ -6,6 +6,7 @@ const ActionType = {
   UPVOTE_THREAD_DETAIL: 'UPVOTE_THREAD_DETAIL',
   DOWNVOTE_THREAD_DETAIL: 'DOWNVOTE_THREAD_DETAIL',
   NEUTRALIZE_THREAD_DETAIL: 'NEUTRALIZE_THREAD_DETAIL',
+  ADD_COMMENT_THREAD_DETAIL: 'ADD_COMMENT_THREAD_DETAIL',
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -46,6 +47,15 @@ function neutralizeThreadDetailActionCreator(userId) {
     type: ActionType.NEUTRALIZE_THREAD_DETAIL,
     payload: {
       userId,
+    },
+  };
+}
+
+function addCommentThreadDetailActionCreator(comment) {
+  return {
+    type: ActionType.ADD_COMMENT_THREAD_DETAIL,
+    payload: {
+      comment,
     },
   };
 }
@@ -108,6 +118,7 @@ export {
   upVoteThreadDetailActionCreator,
   downVoteThreadDetailActionCreator,
   neutralizeThreadDetailActionCreator,
+  addCommentThreadDetailActionCreator,
   asyncReceiveThreadDetail,
   asyncUpVoteThreadDetail,
   asyncDownVoteThreadDetail,

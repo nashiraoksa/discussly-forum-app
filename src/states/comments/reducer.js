@@ -8,7 +8,7 @@ function commentReducer(comments = [], action = {}) {
       return [action.payload.comment, ...comments];
     case ActionType.UPVOTE_COMMENT:
       return comments.map((comment) => {
-        if (comment.id === action.payload.id) {
+        if (comment.id === action.payload.commentId) {
           return {
             ...comment,
             upVotesBy: comment.upVotesBy.includes(action.payload.userId)
@@ -20,22 +20,25 @@ function commentReducer(comments = [], action = {}) {
       });
     case ActionType.NEUTRALIZE_COMMENT:
       return comments.map((comment) => {
-        if (comment.id === action.payload.id) {
+        if (comment.id === action.payload.commentId) {
           return {
             ...comment,
-            upVotesBy:
-              comment.upVotesBy.includes(action.payload.userId) &&
-              comment.downVotesBy.filter((id) => id !== action.payload.userId),
-            downVotesBy:
-              comment.upVotesBy.includes(action.payload.userId) &&
-              comment.downVotesBy.filter((id) => id !== action.payload.userId),
+            upVotesBy: comment.upVotesBy.filter((id) => id !== action.payload.userId),
+            downVotesBy: comment.downVotesBy.filter((id) => id !== action.payload.userId),
+
+            // upVotesBy:
+            //   comment.upVotesBy.includes(action.payload.userId) &&
+            //   comment.downVotesBy.filter((id) => id !== action.payload.userId),
+            // downVotesBy:
+            //   comment.upVotesBy.includes(action.payload.userId) &&
+            //   comment.downVotesBy.filter((id) => id !== action.payload.userId),
           };
         }
         return comment;
       });
     case ActionType.DOWNVOTE_COMMENT:
       return comments.map((comment) => {
-        if (comment.id === action.payload.id) {
+        if (comment.id === action.payload.commentId) {
           return {
             ...comment,
             downVotesBy: comment.downVotesBy.includes(action.payload.userId)

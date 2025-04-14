@@ -28,6 +28,11 @@ function threadDetailReducer(threadDetail = null, action = {}) {
         upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId),
         downVotesBy: threadDetail.downVotesBy.filter((id) => id !== action.payload.userId),
       };
+    case ActionType.ADD_COMMENT_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        comments: [action.payload.comment, ...threadDetail.comments],
+      };
     default:
       return threadDetail;
   }

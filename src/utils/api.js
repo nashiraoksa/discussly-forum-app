@@ -242,8 +242,8 @@ const api = (() => {
     }
   }
 
-  async function createComment({ content }) {
-    const response = await _fetchWithAuth(`${BASE_URL}/comments`, {
+  async function createComment({ content, threadId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

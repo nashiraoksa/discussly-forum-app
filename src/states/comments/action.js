@@ -1,4 +1,5 @@
 import api from '../../utils/api';
+import { addCommentThreadDetailActionCreator } from '../threadDetail/action';
 
 const ActionType = {
   RECEIVE_COMMENTS: 'RECEIVE_COMMENTS',
@@ -11,7 +12,7 @@ const ActionType = {
 function receiveCommentsActionCreator(comments) {
   return {
     type: ActionType.RECEIVE_COMMENTS,
-    paylaoad: {
+    payload: {
       comments,
     },
   };
@@ -56,16 +57,29 @@ function neutralizeCommentActionCreator({ commentId, userId }) {
   };
 }
 
-function asyncAddComment({ content }) {
+function asyncAddComment({ content, threadId }) {
   return async (dispatch) => {
     try {
-      const comment = await api.createComment({ content });
-      dispatch(addCommentActionCreator(comment));
+      const comment = await api.createComment({ content, threadId });
+
+      // Update threadDetail state instead of comments
+      dispatch(addCommentThreadDetailActionCreator(comment));
     } catch (error) {
       alert(error.message);
     }
   };
 }
+
+// function asyncAddComment({ content, threadId }) {
+//   return async (dispatch) => {
+//     try {
+//       const comment = await api.createComment({ content, threadId });
+//       dispatch(addCommentActionCreator(comment));
+//     } catch (error) {
+//       alert(error.message);
+//     }
+//   };
+// }
 
 function asyncUpVoteComment(commentId) {
   return async (dispatch, getState) => {

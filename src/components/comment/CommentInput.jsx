@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import TextAreaGeneral from '../general/TextAreaGeneral';
 import ButtonGeneral from '../general/ButtonGeneral';
+import PropTypes from 'prop-types';
 
-export default function CommentInput() {
+export default function CommentInput({ createComment }) {
   const [comment, setComment] = useState('');
   const [isEmpty, setIsEmpty] = useState(true);
 
@@ -30,9 +31,13 @@ export default function CommentInput() {
           text='Comment'
           type='primary'
           rounded='md'
-          onClick={() => console.log(comment)}
+          onClick={() => createComment(comment)}
         />
       </form>
     </div>
   );
 }
+
+CommentInput.propTypes = {
+  createComment: PropTypes.func.isRequired,
+};
