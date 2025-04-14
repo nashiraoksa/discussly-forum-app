@@ -12,6 +12,11 @@ import {
 } from '../states/threadDetail/action';
 import { asyncAddComment } from '../states/comments/action';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  asyncUpVoteComment,
+  asyncDownVoteComment,
+  asyncNeutralizeComment,
+} from '../states/threadDetail/action';
 
 export default function DetailPage() {
   const navigate = useNavigate();
@@ -36,11 +41,23 @@ export default function DetailPage() {
   };
 
   const onCommentThread = (comment) => {
-    console.log(id);
     dispatch(asyncAddComment({ content: comment, threadId: id }));
   };
 
-  const onVoteComment = () => {};
+  const onUpVoteComment = (commentId) => {
+    dispatch(asyncUpVoteComment({ threadId: threadDetail?.id, commentId }));
+  };
+
+  const onDownVoteComment = (commentId) => {
+    dispatch(asyncDownVoteComment({ threadId: threadDetail?.id, commentId }));
+  };
+
+  const onNeutralizeComment = (commentId) => {
+    dispatch(asyncNeutralizeComment({ threadId: threadDetail?.id, commentId }));
+  };
+
+  const isCommentUpvoted = (upVotesBy) => upVotesBy.includes(authUser?.id);
+  const isCommentDownvoted = (downVotesBy) => downVotesBy.includes(authUser?.id);
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id));
@@ -69,7 +86,14 @@ export default function DetailPage() {
               </p>
             </div>
           )}
-          <CommentList comments={threadDetail.comments} onVoteComment={onVoteComment} />
+          <CommentList
+            comments={threadDetail.comments}
+            onUpVoteComment={onUpVoteComment}
+            onDownVoteComment={onDownVoteComment}
+            onNeutralizeComment={onNeutralizeComment}
+            isCommentUpvoted={isCommentUpvoted}
+            isCommentDownvoted={isCommentDownvoted}
+          />
         </div>
       </CardGeneral>
     </div>

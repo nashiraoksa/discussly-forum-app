@@ -33,6 +33,52 @@ function threadDetailReducer(threadDetail = null, action = {}) {
         ...threadDetail,
         comments: [action.payload.comment, ...threadDetail.comments],
       };
+    case ActionType.UPVOTE_COMMENT_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        comments: threadDetail.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.includes(action.payload.userId)
+                ? comment.upVotesBy.filter((id) => id !== action.payload.userId)
+                : [...comment.upVotesBy, action.payload.userId],
+              downVotesBy: comment.downVotesBy?.filter((id) => id !== action.payload.userId),
+            };
+          }
+          return comment;
+        }),
+      };
+    case ActionType.DOWNVOTE_COMMENT_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        comments: threadDetail.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            return {
+              ...comment,
+              downVotesBy: comment.downVotesBy.includes(action.payload.userId)
+                ? comment.downVotesBy.filter((id) => id !== action.payload.userId)
+                : [...comment.downVotesBy, action.payload.userId],
+              upVotesBy: comment.upVotesBy?.filter((id) => id !== action.payload.userId),
+            };
+          }
+          return comment;
+        }),
+      };
+    case ActionType.NEUTRALIZE_COMMENT_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        comments: threadDetail.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.filter((id) => id !== action.payload.userId),
+              downVotesBy: comment.downVotesBy.filter((id) => id !== action.payload.userId),
+            };
+          }
+          return comment;
+        }),
+      };
     default:
       return threadDetail;
   }

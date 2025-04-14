@@ -1,19 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaRegThumbsUp, FaRegThumbsDown, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import parser from 'html-react-parser';
 import { postedAt } from '../../utils';
 import PropTypes from 'prop-types';
 
-export default function CommentList({ comments }) {
-  const [isCommentUpVoted, setIsCommentUpVoted] = useState(false);
-  const [isCommentDownVoted, setIsCommentDownVoted] = useState(false);
-
-  const handleUpVote = () => {
-    setIsCommentUpVoted((prev) => !prev);
+export default function CommentList({
+  comments,
+  onUpVoteComment,
+  onDownVoteComment,
+  onNeutralizeComment,
+  isCommentUpvoted,
+  isCommentDownvoted,
+}) {
+  const handleUpVote = (comment) => {
+    if (isCommentUpvoted(comment.upVotesBy)) {
+      onNeutralizeComment(comment.id);
+    } else {
+      onUpVoteComment(comment.id);
+    }
   };
 
-  const handleDownVote = () => {
-    setIsCommentDownVoted((prev) => !prev);
+  const handleDownVote = (comment) => {
+    if (isCommentDownvoted(comment.downVotesBy)) {
+      onNeutralizeComment(comment.id);
+    } else {
+      onDownVoteComment(comment.id);
+    }
   };
 
   return (
@@ -44,14 +56,18 @@ export default function CommentList({ comments }) {
               </div>
               <div className='w-full flex gap-2 justify-end text-sm'>
                 <div className='flex items-center gap-1'>
-                  <span className='cursor-pointer' onClick={handleUpVote}>
-                    {isCommentUpVoted ? <FaThumbsUp /> : <FaRegThumbsUp />}
+                  <span className='cursor-pointer' onClick={() => handleUpVote(comment)}>
+                    {isCommentUpvoted(comment.upVotesBy) ? <FaThumbsUp /> : <FaRegThumbsUp />}
                   </span>
                   <span>{comment.upVotesBy.length}</span>
                 </div>
                 <div className='flex items-center gap-1'>
-                  <span className='cursor-pointer' onClick={handleDownVote}>
-                    {isCommentDownVoted ? <FaThumbsDown /> : <FaRegThumbsDown />}
+                  <span className='cursor-pointer' onClick={() => handleDownVote(comment)}>
+                    {isCommentDownvoted(comment.downVotesBy) ? (
+                      <FaThumbsDown />
+                    ) : (
+                      <FaRegThumbsDown />
+                    )}
                   </span>
                   <span>{comment.downVotesBy.length}</span>
                 </div>
@@ -66,4 +82,9 @@ export default function CommentList({ comments }) {
 
 CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
+  onUpVoteComment: PropTypes.func.isRequired,
+  onDownVoteComment: PropTypes.func.isRequired,
+  onNeutralizeComment: PropTypes.func.isRequired,
+  isCommentUpvoted: PropTypes.func.isRequired,
+  isCommentDownvoted: PropTypes.func.isRequired,
 };
