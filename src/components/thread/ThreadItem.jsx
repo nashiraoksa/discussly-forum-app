@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { FaRegThumbsUp, FaRegThumbsDown, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { postedAt } from '../../utils';
@@ -15,21 +15,28 @@ export default function ThreadItem({
   upVotesBy,
   downVotesBy,
   totalComments,
+  onUpVoteThread,
+  onDownVoteThread,
+  onNeutralizeThread,
+  isUpvoted,
+  isDownvoted,
 }) {
   const navigate = useNavigate();
 
-  const [isThreadUpVoted, setIsThreadUpVoted] = useState(false);
-  const [isThreadDownVoted, setIsThreadDownVoted] = useState(false);
-
-  const handleUpVote = () => {
-    // if upvoteby include user.id, then neutralize, else upvote
-    setIsThreadUpVoted((prev) => !prev);
+  const handleUpVote = (threadId) => {
+    if (isUpvoted(upVotesBy)) {
+      onNeutralizeThread(threadId);
+    } else {
+      onUpVoteThread(threadId);
+    }
   };
 
-  const handleDownVote = () => {
-    // if downvoteby include user.id, then neutralize, else downvote
-    // e.stopPropagate()
-    setIsThreadDownVoted((prev) => !prev);
+  const handleDownVote = (threadId) => {
+    if (isDownvoted(downVotesBy)) {
+      onNeutralizeThread(threadId);
+    } else {
+      onDownVoteThread(threadId);
+    }
   };
 
   return (
@@ -70,14 +77,14 @@ export default function ThreadItem({
           <div className='text-sm flex gap-2 items-center'>
             <div className='flex gap-2'>
               <div className='flex items-center gap-1'>
-                <span className='cursor-pointer' onClick={handleUpVote}>
-                  {isThreadUpVoted ? <FaThumbsUp /> : <FaRegThumbsUp />}
+                <span className='cursor-pointer' onClick={() => handleUpVote(id)}>
+                  {isUpvoted(upVotesBy) ? <FaThumbsUp /> : <FaRegThumbsUp />}
                 </span>
                 <span>{upVotesBy.length}</span>
               </div>
               <div className='flex items-center gap-1'>
-                <span className='cursor-pointer' onClick={handleDownVote}>
-                  {isThreadDownVoted ? <FaThumbsDown /> : <FaRegThumbsDown />}
+                <span className='cursor-pointer' onClick={() => handleDownVote(id)}>
+                  {isDownvoted(downVotesBy) ? <FaThumbsDown /> : <FaRegThumbsDown />}
                 </span>
                 <span>{downVotesBy.length}</span>
               </div>
@@ -101,4 +108,9 @@ ThreadItem.propTypes = {
   upVotesBy: PropTypes.array.isRequired,
   downVotesBy: PropTypes.array.isRequired,
   totalComments: PropTypes.number.isRequired,
+  onUpVoteThread: PropTypes.func.isRequired,
+  onDownVoteThread: PropTypes.func.isRequired,
+  onNeutralizeThread: PropTypes.func.isRequired,
+  isUpvoted: PropTypes.func.isRequired,
+  isDownvoted: PropTypes.func.isRequired,
 };
