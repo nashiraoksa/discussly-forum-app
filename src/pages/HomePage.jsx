@@ -18,7 +18,7 @@ export default function HomePage() {
 
   const threadList = threads?.map((thread) => ({
     ...thread,
-    user: users.find((user) => user.ownerId === thread.user),
+    user: users.find((user) => user.id === thread.ownerId),
   }));
 
   const getFilteredThreads = (threads, categories) => {
