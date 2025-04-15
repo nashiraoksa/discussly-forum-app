@@ -1,4 +1,5 @@
 import api from '../../utils/api';
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 
 const ActionType = {
   SET_CATEGORIES: 'SET_CATEGORIES',
@@ -25,6 +26,8 @@ function toggleSelectCategoryActionCreator(category) {
 
 function asyncSetCategories() {
   return async (dispatch) => {
+    dispatch(showLoading());
+
     try {
       const threads = await api.getAllThreads();
 
@@ -41,6 +44,8 @@ function asyncSetCategories() {
     } catch (error) {
       alert(error.message);
     }
+
+    dispatch(hideLoading());
   };
 }
 

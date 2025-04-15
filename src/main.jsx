@@ -6,13 +6,15 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './states/index.js';
+import Loading from './components/general/Loading';
 
 createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <Loading />
+      <BrowserRouter>
         <App />
-      </StrictMode>
-    </BrowserRouter>
-  </Provider>
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>
 );

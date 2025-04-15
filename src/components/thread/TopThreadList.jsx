@@ -27,7 +27,7 @@ export default function TopThreadList({ threads }) {
                 >
                   {thread.title}
                 </h4>
-                <p className='h-6 text-sm text-[#838a99] truncate'>{parser(thread.body)}</p>
+                <div className='h-6 text-sm text-[#838a99] truncate'>{parser(thread.body)}</div>
               </div>
               <div className='text-sm flex justify-between'>
                 <span className='text-[#838a99] font-medium'>

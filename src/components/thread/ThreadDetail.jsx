@@ -21,9 +21,7 @@ export default function ThreadDetail({
       <header>
         <h3 className='text-2xl text-[#373F51] font-bold'>{title}</h3>
       </header>
-      <div className='w-full text-md'>
-        <p>{parser(body)}</p>
-      </div>
+      <div className='w-full text-md'>{parser(body)}</div>
       <footer className='w-full flex justify-between'>
         <div className='flex items-center gap-2'>
           <span className='text-xs bg-[#D8DBE2] text-[#373F51] py-1 px-3 rounded-full'>

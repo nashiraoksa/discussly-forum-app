@@ -60,7 +60,7 @@ export default function ThreadItem({
       </header>
       <div className='flex flex-col gap-2'>
         <div className='max-h-16 text-sm text-gray-500 text-wrap overflow-hidden'>
-          <p className='w-full line-clamp-3'>{parser(body)}</p>
+          <div className='w-full line-clamp-3'>{parser(body)}</div>
         </div>
         <div className='w-full mt-2 flex gap-2 justify-between items-center'>
           <div className='w-fit flex gap-2 items-center'>

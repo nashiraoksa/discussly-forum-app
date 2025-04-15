@@ -1,4 +1,5 @@
 import api from '../../utils/api';
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -58,17 +59,23 @@ function neutralizeThreadActionCreator({ threadId, userId }) {
 
 function asyncAddThread({ title, body, category }) {
   return async (dispatch) => {
+    dispatch(showLoading());
+
     try {
       const thread = await api.createThread({ title, body, category });
       dispatch(addThreadActionCreator(thread));
     } catch (error) {
       alert(error.message);
     }
+
+    dispatch(hideLoading());
   };
 }
 
 function asyncUpVoteThread(threadId) {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
+
     const { authUser } = getState();
     dispatch(upVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
@@ -78,11 +85,15 @@ function asyncUpVoteThread(threadId) {
       alert(error.message);
       dispatch(neutralizeThreadActionCreator({ threadId, userId: authUser.id }));
     }
+
+    dispatch(hideLoading());
   };
 }
 
 function asyncNeutralizeThread(threadId) {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
+
     const { authUser } = getState();
     dispatch(neutralizeThreadActionCreator({ threadId, userId: authUser.id }));
 
@@ -91,11 +102,15 @@ function asyncNeutralizeThread(threadId) {
     } catch (error) {
       alert(error.message);
     }
+
+    dispatch(hideLoading());
   };
 }
 
 function asyncDownVoteThread(threadId) {
   return async (dispatch, getState) => {
+    dispatch(showLoading());
+
     const { authUser } = getState();
     dispatch(downVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
@@ -105,6 +120,8 @@ function asyncDownVoteThread(threadId) {
       alert(error.message);
       dispatch(neutralizeThreadActionCreator({ threadId, userId: authUser.id }));
     }
+
+    dispatch(hideLoading());
   };
 }
 
