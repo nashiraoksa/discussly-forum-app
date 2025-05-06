@@ -38,7 +38,11 @@ export default function RegisterInput({ register }) {
         </div>
       </div>
       <div>
-        <ButtonGeneral type='primary' text='Login' onClick={() => register({ email, password })} />
+        <ButtonGeneral
+          type='primary'
+          text='Register'
+          onClick={() => register({ name, email, password })}
+        />
         <div className='mt-1 flex text-sm gap-1 text-[#373F51]'>
           <p>Already have an account?</p>
           <Link to='/login' className='underline font-medium'>

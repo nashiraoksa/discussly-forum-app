@@ -1,31 +1,42 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { FaRegThumbsUp, FaRegThumbsDown, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { postedAt } from '../../utils';
+import parser from 'html-react-parser';
 
 export default function ThreadItem({
   id,
+  user,
   title,
   body,
   category,
   createdAt,
-  avatar,
-  username,
   upVotesBy,
   downVotesBy,
   totalComments,
+  onUpVoteThread,
+  onDownVoteThread,
+  onNeutralizeThread,
+  isUpvoted,
+  isDownvoted,
 }) {
   const navigate = useNavigate();
 
-  const [isThreadUpVoted, setIsThreadUpVoted] = useState(false);
-  const [isThreadDownVoted, setIsThreadDownVoted] = useState(false);
-
-  const handleUpVote = () => {
-    setIsThreadUpVoted((prev) => !prev);
+  const handleUpVote = (threadId) => {
+    if (isUpvoted(upVotesBy)) {
+      onNeutralizeThread(threadId);
+    } else {
+      onUpVoteThread(threadId);
+    }
   };
 
-  const handleDownVote = () => {
-    setIsThreadDownVoted((prev) => !prev);
+  const handleDownVote = (threadId) => {
+    if (isDownvoted(downVotesBy)) {
+      onNeutralizeThread(threadId);
+    } else {
+      onDownVoteThread(threadId);
+    }
   };
 
   return (
@@ -33,10 +44,10 @@ export default function ThreadItem({
       <header className='w-full flex flex-col gap-2'>
         <div className='w-full flex justify-between items-center'>
           <div className='flex items-center gap-2'>
-            <img src={avatar} alt='avatar' className='w-5 h-5 rounded-full bg-slate-300' />
-            <span className='text-xs'>{username}</span>
+            <img src={user.avatar} alt='avatar' className='w-5 h-5 rounded-full bg-slate-300' />
+            <span className='text-xs'>{user.name}</span>
           </div>
-          <span className='text-xs text-slate-400'>{createdAt}</span>
+          <span className='text-xs text-slate-400'>{postedAt(createdAt)}</span>
         </div>
         <div>
           <h3
@@ -49,7 +60,7 @@ export default function ThreadItem({
       </header>
       <div className='flex flex-col gap-2'>
         <div className='max-h-16 text-sm text-gray-500 text-wrap overflow-hidden'>
-          <p className='w-full line-clamp-3'>{body}</p>
+          <div className='w-full line-clamp-3'>{parser(body)}</div>
         </div>
         <div className='w-full mt-2 flex gap-2 justify-between items-center'>
           <div className='w-fit flex gap-2 items-center'>
@@ -66,14 +77,14 @@ export default function ThreadItem({
           <div className='text-sm flex gap-2 items-center'>
             <div className='flex gap-2'>
               <div className='flex items-center gap-1'>
-                <span className='cursor-pointer' onClick={handleUpVote}>
-                  {isThreadUpVoted ? <FaThumbsUp /> : <FaRegThumbsUp />}
+                <span className='cursor-pointer' onClick={() => handleUpVote(id)}>
+                  {isUpvoted(upVotesBy) ? <FaThumbsUp /> : <FaRegThumbsUp />}
                 </span>
                 <span>{upVotesBy.length}</span>
               </div>
               <div className='flex items-center gap-1'>
-                <span className='cursor-pointer' onClick={handleDownVote}>
-                  {isThreadDownVoted ? <FaThumbsDown /> : <FaRegThumbsDown />}
+                <span className='cursor-pointer' onClick={() => handleDownVote(id)}>
+                  {isDownvoted(downVotesBy) ? <FaThumbsDown /> : <FaRegThumbsDown />}
                 </span>
                 <span>{downVotesBy.length}</span>
               </div>
@@ -93,9 +104,13 @@ ThreadItem.propTypes = {
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   upVotesBy: PropTypes.array.isRequired,
   downVotesBy: PropTypes.array.isRequired,
   totalComments: PropTypes.number.isRequired,
+  onUpVoteThread: PropTypes.func.isRequired,
+  onDownVoteThread: PropTypes.func.isRequired,
+  onNeutralizeThread: PropTypes.func.isRequired,
+  isUpvoted: PropTypes.func.isRequired,
+  isDownvoted: PropTypes.func.isRequired,
 };

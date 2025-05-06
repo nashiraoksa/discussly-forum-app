@@ -21,11 +21,6 @@ export default function ThreadInput({ createThread }) {
     }
   };
 
-  const onSubmit = () => {
-    createThread();
-    console.log(title, category, body);
-  };
-
   return (
     <form action='' className='w-full h-[60vh] flex flex-col gap-6 justify-start pt-8'>
       <div className='flex flex-col gap-4'>
@@ -46,7 +41,11 @@ export default function ThreadInput({ createThread }) {
         </div>
       </div>
       <div className='flex items-start'>
-        <ButtonGeneral type='primary' text='Create Thread' onClick={onSubmit} />
+        <ButtonGeneral
+          type='primary'
+          text='Create Thread'
+          onClick={() => createThread({ title, category, body })}
+        />
       </div>
     </form>
   );

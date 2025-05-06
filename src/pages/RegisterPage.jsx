@@ -1,9 +1,18 @@
 import React from 'react';
 import CardGeneral from '../components/general/CardGeneral';
 import RegisterInput from '../components/register/RegisterInput';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { asyncRegisterUser } from '../states/users/action';
+
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onRegister = ({ name, email, password }) => {
-    console.log('register', name, email, password);
+    dispatch(asyncRegisterUser({ name, email, password }));
+
+    navigate('/login');
   };
 
   return (
