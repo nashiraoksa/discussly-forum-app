@@ -12,7 +12,7 @@ export default function Navigation({ authUser, signOut }) {
   const location = useLocation();
 
   return (
-    <div className='w-full h-[64px] flex justify-between bg-[#373F51] border-b border-b-[#A9BCD0] border-opacity-50 text-white fixed top-0'>
+    <div className='w-full h-[64px] flex justify-between bg-[#373F51] border-b border-b-[#A9BCD0] border-opacity-50 text-white fixed top-0 z-20'>
       <Link to='/' className='w-1/3 pl-16 flex gap-2 items-center'>
         <img src={DiscusslyLogo} alt='DiscussLy_Logo' className='w-[35px]' />
         <h1 className='text-xl font-semibold'>DiscussLy</h1>
