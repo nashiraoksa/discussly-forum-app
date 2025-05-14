@@ -18,7 +18,7 @@ export default function LoginPage() {
   return (
     <div className='w-full h-full py-12 px-96 flex flex-col justify-start items-center'>
       <CardGeneral>
-        <h2 className='text-2xl text-[#373F51] font-bold'>Login DiscussLy</h2>
+        <h2 className='text-2xl text-[#373F51] font-bold'>Login</h2>
         <LoginInput login={onLogin} />
       </CardGeneral>
     </div>
