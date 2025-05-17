@@ -10,10 +10,17 @@
     "preview": "vite preview",
     "test": "vitest",
     "e2e": "cypress run",
-    "ci:test": "vitest --no-watch && start-server-and-test dev http://localhost:5173/ e2e"
+    "ci:test": "vitest --no-watch && start-server-and-test dev http://localhost:5173/ e2e",
+    "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
+    "@storybook/addon-interactions": "^8.6.12",
+    "@storybook/addon-onboarding": "^8.6.12",
+    "@storybook/blocks": "^8.6.12",
+    "@storybook/preset-create-react-app": "^8.6.12",
+    "@storybook/react-webpack5": "^8.6.12",
+    "@storybook/test": "^8.6.12",
     "html-react-parser": "^5.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -25,6 +32,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/react": "^8.6.12",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.6.1",
