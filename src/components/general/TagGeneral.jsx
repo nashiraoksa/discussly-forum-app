@@ -17,7 +17,7 @@ export default function TagGeneral({ text, selected, onClick }) {
 
   return (
     <div
-      className={`text-xs leading-1 px-4 py-2 rounded-full cursor-pointer ${styleClass}`}
+      className={`w-fit text-xs leading-1 px-4 py-2 rounded-full cursor-pointer ${styleClass}`}
       onClick={onClick}
     >
       {text}
