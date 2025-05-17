@@ -39,7 +39,7 @@ export default function ButtonGeneral({ text, type, rounded, icon, onClick }) {
   return (
     <button
       type='button'
-      className={`w-full py-1 px-4 pb-2 flex justify-center items-center gap-1 text-sm ${styleClass}`}
+      className={`w-full py-2 px-4 pb-2 flex justify-center items-center gap-1 text-sm ${styleClass}`}
       onClick={onClick}
     >
       {icon}
