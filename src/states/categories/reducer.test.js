@@ -1,3 +1,13 @@
+/**
+ * test scenario for categoriesReducer
+ *
+ * - categoriesReducer function
+ *  - should return the initial state when given by unknown action
+ *  - should return the categories when given by SET_CATEGORIES action
+ *  - should return the selected category is true when given by TOGGLE_SELECT_CATEGORY action
+ *
+ */
+
 import { describe, expect, it } from 'vitest';
 import categoriesReducer from './reducer';
 

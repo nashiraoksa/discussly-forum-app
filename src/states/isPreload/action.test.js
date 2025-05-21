@@ -1,3 +1,11 @@
+/**
+ * skenario test
+ *
+ * - asyncPreloadProcess thunk
+ *  - should dispatch action correctly when getOwnProfile succeeds
+ *  - should log error, dispatch null authUser, and continue preload when getOwnProfile fails
+ */
+
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { setAuthUserActionCreator } from '../authUser/action';
 import { setIsPreloadActionCreator, asyncPreloadProcess } from './action';

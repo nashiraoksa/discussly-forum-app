@@ -3,7 +3,7 @@ import LoadingBar from 'react-redux-loading-bar';
 
 function Loading() {
   return (
-    <div className='w-full sticky top-0 z-20'>
+    <div className='w-full sticky top-0 z-30'>
       <LoadingBar
         progressIncrease={1}
         showFastActions
