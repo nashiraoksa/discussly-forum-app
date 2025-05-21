@@ -1,3 +1,11 @@
+/**
+ * skenario test
+ *
+ * - asyncPopulateUsersThreadsLeaderboards thunk
+ *  - should dispatch action correctly when data fetching success
+ *  - should dispatch action and call alert correctly when data fetching failed
+ */
+
 import { describe, it, beforeEach, afterEach, vi, expect } from 'vitest';
 import api from '../../utils/api';
 import { asyncPopulateUsersThreadsLeaderboards } from './action';

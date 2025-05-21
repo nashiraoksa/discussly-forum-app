@@ -1,10 +1,13 @@
+/* eslint-disable no-undef */
+/* global cy */
+
 /**
  * - Login spec
  *   - should display login page correctly
- *   - should display alert when username is empty
+ *   - should display alert when email is empty
  *   - should display alert when password is empty
- *   - should display alert when username and password are wrong
- *   - should display homepage when username and password are correct
+ *   - should display alert when email and password are wrong
+ *   - should display homepage when email and password are correct
  */
 
 describe('Login spec', () => {
@@ -13,8 +16,6 @@ describe('Login spec', () => {
   });
 
   it('should display login page correctly', () => {
-    // cy.visit('http://localhost:5173/login');
-
     // memverifikasi elemen yang harus tampak pada halaman login
     cy.get('input[placeholder="Email"]').should('be.visible');
     cy.get('input[placeholder="Password"]').should('be.visible');
@@ -50,7 +51,7 @@ describe('Login spec', () => {
     });
   });
 
-  it('should display alert when username and password are wrong', () => {
+  it('should display alert when email and password are wrong', () => {
     // mengisi username
     cy.get('input[placeholder="Email"]').type('testuser@gmail.com');
 
@@ -68,7 +69,7 @@ describe('Login spec', () => {
     });
   });
 
-  it('should display homepage when username and password are correct', () => {
+  it('should display homepage when email and password are correct', () => {
     // mengisi username
     cy.get('input[placeholder="Email"]').type('test1616@gmail.com');
 

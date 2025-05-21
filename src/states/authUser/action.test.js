@@ -1,3 +1,11 @@
+/**
+ * skenario test
+ *
+ * - asyncRegisterUser thunk
+ *  - should dispatch action correctly when login succeeds
+ *  - should call alert and dispatch hideLoading when login fails
+ */
+
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import api from '../../utils/api';
 import { asyncSetAuthUser } from './action';
